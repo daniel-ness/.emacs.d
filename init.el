@@ -1,10 +1,5 @@
+;; initialise el-get
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-(load-file "~/.emacs.d/elpa/cl-lib-0.3/cl-lib.el")
-
-(package-initialize)
-
-(require 'cl-lib)
-
 (unless (require 'el-get nil t)
   (url-retrieve
    "https://github.com/dimitri/el-get/raw/master/el-get-install.el"
@@ -88,30 +83,51 @@
 
    ))
 
+
 ;; now set our own packages
 (setq
  my:el-get-packages
  '(el-get				; el-get is self-hosting
+   anything
    auto-complete			; complete as you type with overlays
    ac-python
    buffer-move
    color-theme		                ; nice looking emacs
    color-theme-papercup
-   ;magit
+   git-modeline
    smex                                 ; ido-based file finder
    switch-window			; takes over C-x o
    php-mode-improved			; if you're into php...
    php-completion
    flyphpcs
    web-mode
+   yasnippet
+   yaml-mode
    zencoding-mode
    ))
 
 (el-get 'sync my:el-get-packages)
 
+
+;; load manual plugins
+(require 'uniquify)
+
+(add-to-list 'load-path "~/.emacs.d/manual/magit-1.2.0")
+(require 'magit)
+(eval-after-load 'magit
+  '(progn
+     ;; diff colour-scheme
+     (set-face-foreground 'magit-diff-add "#EAFFA2")
+     (set-face-foreground 'magit-diff-del "#FFA5A2")
+     (set-face-foreground 'magit-diff-none "#777777")
+     (set-face-background 'magit-item-highlight "#444444")))
+(global-set-key (kbd"C-x g") 'magit-status)
+
+
 ;; file finder
 (ido-mode t)
 (setq ido-enable-flex-matching t)
+
 
 ;; hooks
 (add-hook 'php-mode-hook

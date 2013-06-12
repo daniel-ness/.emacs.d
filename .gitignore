@@ -1,0 +1,5 @@
+*.elc
+el-get
+elpa
+.smex-items
+auto-save-list
