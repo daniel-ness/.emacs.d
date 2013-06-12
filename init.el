@@ -32,6 +32,11 @@
 (setq
  el-get-sources
  '(
+   (:name auto-complete
+          :after (progn
+                   (require 'auto-complete)
+                   (global-auto-complete-mode t)))
+
    (:name buffer-move			; have to add your own keys
 	  :after (progn
 		   (global-set-key (kbd "M-<up>")     'buf-move-up)
@@ -111,6 +116,7 @@
 
 ;; load manual plugins
 (require 'uniquify)
+(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 
 (add-to-list 'load-path "~/.emacs.d/manual/magit-1.2.0")
 (require 'magit)
