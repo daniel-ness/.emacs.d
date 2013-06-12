@@ -44,6 +44,10 @@
 		   (global-set-key (kbd "M-<left>")   'buf-move-left)
 		   (global-set-key (kbd "M-<right>")  'buf-move-right)))
 
+   (:name js2-mode
+          :after (progn
+                   (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))))
+
    (:name smex				; a better (ido like) M-x
 	  :after (progn
 		   (setq smex-save-file "~/.emacs.d/.smex-items")
@@ -77,14 +81,13 @@
                    (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
                    (setq web-mode-code-indent-offset 4)))
 
-   (:name color-theme-papercup
+   (:name soothe-theme
           :type git
-          :url "git@github.com:daniel-ness/papercup-theme.git"
-          :load "papercup-theme.el"
-          :compile ("papercup-theme.el")
-          :features color-theme-papercup
+          :url "git://github.com/jasonm23/emacs-soothe-theme.git"
+          :load "soothe-theme.el"
+          :compile ("soothe-theme.el")
           :after (progn
-                   (color-theme-papercup)))
+                   (load-theme 'soothe t)))
 
    ))
 
@@ -98,16 +101,31 @@
    ac-python
    buffer-move
    color-theme		                ; nice looking emacs
-   color-theme-papercup
    git-modeline
+   ipython
+   js2-mode
+   markdown-mode
    smex                                 ; ido-based file finder
    switch-window			; takes over C-x o
+   php-doc
    php-mode-improved			; if you're into php...
    php-completion
+   pretty-mode
+   pretty-lambdada
+   pymacs
+   python-pep8
+   rainbow-mode
+   redspace
+   flymake-cursor
    flyphpcs
+   skype
+   soothe-theme
+   todostack
+   twitter
    web-mode
    yasnippet
    yaml-mode
+   webjump++
    zencoding-mode
    ))
 
