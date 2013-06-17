@@ -29,6 +29,8 @@
 ;;----------------------------------------------------------------;;
 
 
+
+
 (setq
  el-get-sources
  '(
@@ -36,13 +38,6 @@
           :after (progn
                    (require 'auto-complete)
                    (global-auto-complete-mode t)))
-
-   (:name buffer-move			; have to add your own keys
-	  :after (progn
-		   (global-set-key (kbd "M-<up>")     'buf-move-up)
-		   (global-set-key (kbd "M-<down>")   'buf-move-down)
-		   (global-set-key (kbd "M-<left>")   'buf-move-left)
-		   (global-set-key (kbd "M-<right>")  'buf-move-right)))
 
    (:name js2-mode
           :after (progn
@@ -72,6 +67,7 @@
           :after (progn
                    (setq web-mode-engines-alist
                          '(("php"    . "\\.phtml\\'")))
+                   (add-to-list 'auto-mode-alist '("\\.xml\\'" . web-mode))
                    (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
                    (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
                    (add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
@@ -99,11 +95,12 @@
    anything
    auto-complete			; complete as you type with overlays
    ac-python
-   buffer-move
+   ;buffer-move
    color-theme		                ; nice looking emacs
    git-modeline
    ipython
    js2-mode
+   psvn
    markdown-mode
    smex                                 ; ido-based file finder
    switch-window			; takes over C-x o
@@ -117,11 +114,13 @@
    rainbow-mode
    redspace
    flymake-cursor
+   flymake-extension
+   flymake-html-validator
    flyphpcs
-   skype
    soothe-theme
    todostack
    twitter
+   smarttabs
    web-mode
    yasnippet
    yaml-mode
@@ -152,6 +151,11 @@
 (ido-mode t)
 (setq ido-enable-flex-matching t)
 
+;; window navigation
+(global-set-key (kbd "M-<up>")     'windmove-up)
+(global-set-key (kbd "M-<down>")   'windmove-down)
+(global-set-key (kbd "M-<left>")   'windmove-left)
+(global-set-key (kbd "M-<right>")  'windmove-right)
 
 ;; hooks
 (add-hook 'php-mode-hook
@@ -163,11 +167,8 @@
              (c-set-offset 'arglist-intro '+) ; for FAPI arrays and DBTNG
              (c-set-offset 'arglist-cont-nonempty 'c-lineup-math) ; for DBTNG fields and values
              (web-mode)
+             (flymake-mode)
              ))
-
-(add-hook 'web-mode-hook
-          '(lambda ()
-             (flymake-mode)))
 
 
 
