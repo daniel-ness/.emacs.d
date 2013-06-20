@@ -111,7 +111,6 @@
    php-mode-improved			; if you're into php...
    php-completion
    pretty-mode
-   pretty-lambdada
    pymacs
    python-pep8
    rainbow-mode
