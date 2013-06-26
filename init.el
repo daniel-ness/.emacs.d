@@ -112,7 +112,7 @@
    switch-window			; takes over C-x o
    php-mode
    php-doc
-   php-mode-improved			; if you're into php...
+   ;php-mode-improved			; if you're into php...
    php-completion
    pretty-mode
    pymacs
@@ -173,7 +173,6 @@
              (c-set-offset 'arglist-close 'c-lineup-arglist-operators)
              (c-set-offset 'arglist-intro '+) ; for FAPI arrays and DBTNG
              (c-set-offset 'arglist-cont-nonempty 'c-lineup-math) ; for DBTNG fields and values
-             (web-mode)
              (flymake-mode)
              ))
 
