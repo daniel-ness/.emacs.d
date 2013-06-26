@@ -66,8 +66,13 @@
           :features web-mode
           :after (progn
                    (setq web-mode-engines-alist
-                         '(("php"    . "\\.phtml\\'")))
+                         '(("php" . "\\.phtml\\'")
+                           ("php" . "\\.html\twig\\'")
+                           ("jinja" . "\\.jinja.html\\'")
+                           ))
+                   (add-to-list 'auto-mode-alist '("\\.html.twig\\'" . web-mode))
                    (add-to-list 'auto-mode-alist '("\\.xml\\'" . web-mode))
+                   (add-to-list 'auto-mode-alist '("\\.jinja.html\\'" . web-mode))
                    (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
                    (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
                    (add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
@@ -92,6 +97,7 @@
 (setq
  my:el-get-packages
  '(el-get				; el-get is self-hosting
+   android-mode
    anything
    auto-complete			; complete as you type with overlays
    ac-python
@@ -104,6 +110,7 @@
    markdown-mode
    smex                                 ; ido-based file finder
    switch-window			; takes over C-x o
+   php-mode
    php-doc
    php-mode-improved			; if you're into php...
    php-completion
@@ -161,6 +168,7 @@
           '(lambda ()
              (setq c-basic-offset 4) ; 2 tabs indenting
              (setq fill-column 78)
+             (local-set-key (kbd "RET") 'newline-and-indent)
              (c-set-offset 'case-label '+)
              (c-set-offset 'arglist-close 'c-lineup-arglist-operators)
              (c-set-offset 'arglist-intro '+) ; for FAPI arrays and DBTNG
