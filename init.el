@@ -1,3 +1,14 @@
+(require 'package)
+(add-to-list 'package-archives
+             '("marmalade" . 
+               "http://marmalade-repo.org/packages/"))
+(package-initialize)
+
+(when (require 'flyphpcs)
+  (setq fly/phpcs-phpcs-dir "~/.emacs.d/manual/PHP_CodeSniffer-1.5.0RC2")
+  (setq fly/phpcs-phpexe "/usr/bin/php")
+  )
+
 ;; initialise el-get
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 (unless (require 'el-get nil t)
@@ -27,9 +38,6 @@
 (setq auto-save-file-name-transforms
         `((".*" ,temporary-file-directory t)))
 ;;----------------------------------------------------------------;;
-
-
-
 
 (setq
  el-get-sources
@@ -111,7 +119,6 @@
                    (global-set-key (kbd "C-x C-g") 'git-gutter+-mode) 
                    (global-set-key (kbd "C-x G") 'global-git-gutter+-mode)
                    ))
-
    ))
 
 
@@ -145,7 +152,6 @@
    flymake-cursor
    flymake-extension
    flymake-html-validator
-   flyphpcs
    soothe-theme
    todostack
    twitter
@@ -196,13 +202,6 @@
              (c-set-offset 'arglist-close 'c-lineup-arglist-operators)
              (c-set-offset 'arglist-intro '+) ; for FAPI arrays and DBTNG
              (c-set-offset 'arglist-cont-nonempty 'c-lineup-math) ; for DBTNG fields and values
+             (flyphpcs)
              (flymake-mode)
              ))
-
-
-
-
-
-
-
-
