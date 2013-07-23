@@ -129,6 +129,7 @@
    ipython
    js2-mode
    psvn
+   git-gutter+
    markdown-mode
    smex                                 ; ido-based file finder
    switch-window			; takes over C-x o
