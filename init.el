@@ -90,6 +90,28 @@
           :after (progn
                    (load-theme 'soothe t)))
 
+   (:name git-gutter+
+          :type git
+          :url "git://github.com/nonsequitur/git-gutter-plus.git",
+          :load "git-gutter+.el"
+          :compile ("git-gutter+.el")
+          :after (progn
+                   (global-git-gutter+-mode t)
+
+                   (global-set-key (kbd "C-x n") 'git-gutter+-next-hunk)
+                   (global-set-key (kbd "C-x p") 'git-gutter+-previous-hunk)
+
+                   (global-set-key (kbd "C-x v =") 'git-gutter+-popup-hunk)
+                   (global-set-key (kbd "C-x r") 'git-gutter+-revert-hunk)
+
+                   (global-set-key (kbd "C-x t") 'git-gutter+-stage-hunks)
+                   (global-set-key (kbd "C-x c") 'git-gutter+-commit)
+                   (global-set-key (kbd "C-x C") 'git-gutter+-stage-and-commit)
+
+                   (global-set-key (kbd "C-x C-g") 'git-gutter+-mode) 
+                   (global-set-key (kbd "C-x G") 'global-git-gutter+-mode)
+                   ))
+
    ))
 
 
