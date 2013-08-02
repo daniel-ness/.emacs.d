@@ -1,13 +1,14 @@
+
 (require 'package)
 (add-to-list 'package-archives
              '("marmalade" . 
                "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
-(when (require 'flyphpcs)
-  (setq fly/phpcs-phpcs-dir "~/.emacs.d/manual/PHP_CodeSniffer-1.5.0RC2")
-  (setq fly/phpcs-phpexe "/usr/bin/php")
-  )
+;;(when (require 'flyphpcs)
+;;  (setq fly/phpcs-phpcs-dir "~/.emacs.d/manual/PHP_CodeSniffer-1.5.0RC2")
+;;  (setq fly/phpcs-phpexe "/usr/bin/php")
+;;  )
 
 ;; initialise el-get
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
@@ -24,6 +25,7 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+(global-linum-mode)
 
 (setq-default indent-tabs-mode nil)
 (put 'scroll-left 'disabled -1)
@@ -108,28 +110,7 @@
           :load "soothe-theme.el"
           :compile ("soothe-theme.el")
           :after (progn
-                   (load-theme 'soothe t)))
-
-   (:name git-gutter+
-          :type git
-          :url "git://github.com/nonsequitur/git-gutter-plus.git",
-          :load "git-gutter+.el"
-          :compile ("git-gutter+.el")
-          :after (progn
-                   (global-git-gutter+-mode t)
-
-                   (global-set-key (kbd "C-x n") 'git-gutter+-next-hunk)
-                   (global-set-key (kbd "C-x p") 'git-gutter+-previous-hunk)
-
-                   (global-set-key (kbd "C-x v =") 'git-gutter+-popup-hunk)
-                   (global-set-key (kbd "C-x r") 'git-gutter+-revert-hunk)
-
-                   (global-set-key (kbd "C-x t") 'git-gutter+-stage-hunks)
-                   (global-set-key (kbd "C-x c") 'git-gutter+-commit)
-                   (global-set-key (kbd "C-x C") 'git-gutter+-stage-and-commit)
-
-                   (global-set-key (kbd "C-x C-g") 'git-gutter+-mode) 
-                   (global-set-key (kbd "C-x G") 'global-git-gutter+-mode)
+                   (load-theme 'soothe t)
                    ))
    ))
 
@@ -146,11 +127,11 @@
    ac-python
    ;buffer-move
    color-theme		                ; nice looking emacs
+   fringe-helper
    git-modeline
    ipython
    js2-mode
    psvn
-   git-gutter+
    markdown-mode
    smex                                 ; ido-based file finder
    switch-window			; takes over C-x o
@@ -196,6 +177,25 @@
      (set-face-background 'magit-item-highlight "#444444")))
 (global-set-key (kbd"C-x g") 'magit-status)
 
+;; git gutter
+(add-to-list 'load-path "~/.emacs.d/manual/git-gutter")
+(add-to-list 'load-path "~/.emacs.d/manual/git-gutter-fringe")
+(require 'git-gutter-fringe)
+(eval-after-load 'git-gutter-fringe
+  '(progn
+     (global-git-gutter-mode)
+     (setq-default left-fringe-width 10)
+     (setq-default git-gutter:modified-sign "~")
+
+     (set-face-foreground 'git-gutter-fr:added "#8DA764")
+     (set-face-foreground 'git-gutter-fr:deleted "#CE6255")
+     (set-face-foreground 'git-gutter-fr:modified "#96BED3")
+
+     (global-set-key (kbd "C-x C-g") 'git-gutter:toggle)
+     (global-set-key (kbd "C-x v =") 'git-gutter:popup-hunk)
+     (global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
+     (global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
+     (global-set-key (kbd "C-x r") 'git-gutter:revert-hunk)))
 
 ;; file finder
 (ido-mode t)
@@ -215,8 +215,8 @@
              (local-set-key (kbd "RET") 'newline-and-indent)
              (c-set-offset 'case-label '+)
              (c-set-offset 'arglist-close 'c-lineup-arglist-operators)
-             (c-set-offset 'arglist-intro '+) ; for FAPI arrays and DBTNG
-             (c-set-offset 'arglist-cont-nonempty 'c-lineup-math) ; for DBTNG fields and values
+             (c-set-offset 'arglist-intro '+)
+             (c-set-offset 'arglist-cont-nonempty 'c-lineup-math)
              (flyphpcs)
              (flymake-mode)
              ))
