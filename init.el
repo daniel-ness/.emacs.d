@@ -42,10 +42,22 @@
 (setq
  el-get-sources
  '(
+
+   (:name autopair
+          :after (progn
+                   (autopair-global-mode)))
+
    (:name auto-complete
           :after (progn
                    (require 'auto-complete)
                    (global-auto-complete-mode t)))
+
+   (:name flyphpcs 
+          :after (progn
+                   (require 'flyphpcs)
+                   (setq fly/phpcs-phpexe "/usr/bin/php")
+                   (setq fly/phpcs-phpcs-dir "/home/daniel/.emacs.d/manual/PHP_CodeSniffer-1.5.0RC2")
+                   (setq fly/phpcs-standard "PSR2")))
 
    (:name js2-mode
           :after (progn
@@ -126,6 +138,8 @@
 (setq
  my:el-get-packages
  '(el-get				; el-get is self-hosting
+   autopair
+   ;smart-operator
    android-mode
    anything
    auto-complete			; complete as you type with overlays
@@ -152,6 +166,7 @@
    flymake-cursor
    flymake-extension
    flymake-html-validator
+   flyphpcs
    soothe-theme
    todostack
    twitter
