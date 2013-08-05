@@ -72,14 +72,14 @@
   "........")
 
 (fringe-helper-define 'git-gutter-fr:modified nil
-  "........"
-  "..XXXX.."
-  "..XXXX.."
-  "..XXXX.."
-  "..XXXX.."
-  "..XXXX.."
-  "..XXXX.."
-  "........")
+  ".XX....."
+  ".XXX...."
+  ".XXXX..."
+  ".XXXXX.."
+  ".XXXXX.."
+  ".XXXX..."
+  ".XXX...."
+  ".XX.....")
 
 (defvar git-gutter-fr:bitmap-references nil)
 

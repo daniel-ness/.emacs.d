@@ -44,10 +44,21 @@
 (setq
  el-get-sources
  '(
-
    (:name autopair
           :after (progn
                    (autopair-global-mode)))
+   
+   (:name arduino-mode
+          :type git  
+          :url "git://github.com/bookest/arduino-mode.git"  
+          :load "arduino-mode.el"  
+          :compile ("arduino-mode.el")  
+          :features arduino-mode
+          :after (progn
+                   
+                   (setq ede-arduino-appdir "/usr/share/arduino")
+                   (setq auto-mode-alist (cons '("\\.\\(pde\\|ino\\)$" . arduino-mode) auto-mode-alist))
+                   (autoload 'arduino-mode "arduino-mode" "Arduino editing mode." t)))
 
    (:name auto-complete
           :after (progn
@@ -74,6 +85,15 @@
    (:name magit				; git meet emacs, and a binding
 	  :after (progn
 		   (global-set-key (kbd "C-x C-z") 'magit-status)))
+
+   (:name cedet
+          :after (progn 
+                   (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode t)
+                   (add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode t)
+                   (add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode t)
+
+                   (semantic-mode 1)
+                   (global-ede-mode 1)))
 
    (:name goto-last-change		; move pointer back to last change
 	  :after (progn
@@ -122,10 +142,13 @@
    autopair
    ;smart-operator
    android-mode
+   arduino-mode
    anything
    auto-complete			; complete as you type with overlays
+   autopair
    ac-python
    ;buffer-move
+   cedet
    color-theme		                ; nice looking emacs
    fringe-helper
    git-modeline
@@ -208,6 +231,11 @@
 (global-set-key (kbd "M-<right>")  'windmove-right)
 
 ;; hooks
+(add-hook 'arduino-mode-hook
+          '(lambda ()
+             (setq c-basic-offset 4)
+             ))
+
 (add-hook 'php-mode-hook
           '(lambda ()
              (setq c-basic-offset 4) ; 2 tabs indenting
