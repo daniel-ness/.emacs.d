@@ -3,7 +3,10 @@
 (add-to-list 'package-archives
              '("marmalade" . 
                "http://marmalade-repo.org/packages/"))
+
 (package-initialize)
+
+(load-theme 'ample t)
 
 ;;(when (require 'flyphpcs)
 ;;  (setq fly/phpcs-phpcs-dir "~/.emacs.d/manual/PHP_CodeSniffer-1.5.0RC2")
@@ -31,10 +34,10 @@
 (put 'scroll-left 'disabled -1)
 (show-paren-mode t)
 
-(add-to-list 'default-frame-alist '(font . "Inconsolata-12"))
+(add-to-list 'default-frame-alist '(font . "Inconsolata-10"))
 
 ; temporary file management
-(setq temporary-file-directory "/tmp/emacs.bk")
+(setq temporary-file-directory "/tmp/")
 (setq backup-directory-alist
 	`((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms
@@ -65,18 +68,20 @@
                    (require 'auto-complete)
                    (global-auto-complete-mode t)))
 
-   (:name flyphpcs 
-          :after (progn
-                   (require 'flyphpcs)
-                   (setq fly/phpcs-phpexe "/usr/bin/php")
-                   (setq fly/phpcs-phpcs-dir "/home/daniel/.emacs.d/manual/PHP_CodeSniffer-1.5.0RC2")
-                   (setq fly/phpcs-standard "PSR2")))
-
    (:name js2-mode
           :after (progn
                    (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))))
 
-   (:name smex				; a better (ido like) M-x
+   (:name less-mode
+          :type git
+          :url "git://github.com/purcell/less-css-mode.git"
+          :load "less-css-mode.el"
+          :compile ("less-css-mode.el")
+          :features less-css-mode
+          :after (progn
+                   (setq auto-mode-alist (cons '("\\.less$" . less-css-mode) auto-mode-alist))))
+
+   (:name smex				
 	  :after (progn
 		   (setq smex-save-file "~/.emacs.d/.smex-items")
 		   (global-set-key (kbd "M-x") 'smex)
@@ -124,13 +129,9 @@
                    (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
                    (setq web-mode-code-indent-offset 4)))
 
-   (:name soothe-theme
-          :type git
-          :url "git://github.com/jasonm23/emacs-soothe-theme.git"
-          :load "soothe-theme.el"
-          :compile ("soothe-theme.el")
+   (:name color-theme-railscasts
           :after (progn
-                   (load-theme 'soothe t)
+                   (color-theme-railscasts)
                    ))
    ))
 
@@ -138,7 +139,7 @@
 ;; now set our own packages
 (setq
  my:el-get-packages
- '(el-get				; el-get is self-hosting
+ '(;el-get				; el-get is self-hosting
    autopair
    ;smart-operator
    android-mode
@@ -147,9 +148,13 @@
    auto-complete			; complete as you type with overlays
    autopair
    ac-python
+   feature-mode
    ;buffer-move
-   cedet
+   ;cedet
+   less-mode
+   mysql
    color-theme		                ; nice looking emacs
+   ;color-theme-railscasts
    fringe-helper
    git-modeline
    ipython
@@ -159,21 +164,20 @@
    smex                                 ; ido-based file finder
    switch-window			; takes over C-x o
    php-mode
-   php-doc
+   ;php-doc
    ;php-mode-improved			; if you're into php...
-   php-completion
+   ;php-completion
    pretty-mode
    pymacs
    python-pep8
    rainbow-mode
-   redspace
-   flymake-cursor
-   flymake-extension
-   flymake-html-validator
-   flyphpcs
-   soothe-theme
-   todostack
-   twitter
+   ;redspace
+   ;flymake-cursor
+   ;flymake-extension
+   ;flymake-html-validator
+   ;flyphpcs
+   ;todostack
+   ;twitter
    smarttabs
    web-mode
    yasnippet
@@ -188,6 +192,8 @@
 ;; load manual plugins
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+
+(add-hook 'after-init-hook 'global-flycheck-mode)
 
 (add-to-list 'load-path "~/.emacs.d/manual/magit-1.2.0")
 (require 'magit)
